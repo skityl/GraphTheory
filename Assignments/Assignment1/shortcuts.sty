@@ -1,0 +1,88 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{unswshortcuts}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{bbm}
+\RequirePackage{calc}
+
+% Analysis
+\newcommand{\Rl}{\mathbb{R}}
+\newcommand{\Cplx}{\mathbb{C}}
+\newcommand{\Itgr}{\mathbb{Z}}
+\newcommand{\Ntrl}{\mathbb{N}}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\Hilb}{\mathcal{H}}
+\newcommand{\Intgr}{\mathbb{Z}}
+\newcommand{\pvint}{\mathrm{p.v.}\int}
+\newcommand{\Dom}{\operatorname{Dom}}
+
+
+% Harmonic Analysis
+\newcommand{\clim}{(C,1)-\operatorname{lim}\;}
+\newcommand{\Circ}{\mathbb{T}}
+\newcommand{\ha}{\boldsymbol{m}}
+\newcommand{\isom}{\cong}
+\newcommand{\Dist}{\mathcal{S}'(\Circ)}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\Proj}{\mathbf{P}}
+\newcommand{\BMO}{\operatorname{BMO}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\VMO}{\operatorname{VMO}}
+\newcommand{\Disc}{\mathbb{D}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Half}{\mathbb{H}}
+
+
+% Algebra
+\newcommand{\Grp}{\mathcal{G}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Cliff}{\operatorname{Cliff}}
+
+% Misc
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lla}{\longleftarrow}
+\newcommand{\la}{\leftarrow}
+
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\NLS}{\mathrm{\mathbf{NLS}}}
+
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\com}{\operatorname{com}} 
+
+
+\newcommand{\id}{\operatorname{id}}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+
+
+% Stats \ Prob
+\newcommand{\E}[1]{\mathbb{E} \left[ #1 \right]}
+\newcommand{\Var}[1]{\operatorname{Var} \left[ #1 \right] }
+\newcommand{\Cov}[2]{\operatorname{Cov} \left[ #1, #2 \right] }
+
+% Quantised differentials
+\newsavebox\CBox
+\newcommand\hcancel[2][0.5pt]{%
+  \ifmmode\sbox\CBox{$#2$}\else\sbox\CBox{#2}\fi%
+  \makebox[0.5pt][l]{\usebox\CBox}%  
+  \rule[0.8\ht\CBox-#1/2]{\wd\CBox}{#1}}
+
+
+
+%\newcommand{\qd}{\hcancel[0.9pt]{d}}
+%\newcommand{\qd}{d}
+
+\def\qd{\,{\mathchar'26\mkern-12mu d}}
+  
+  
+
+\endinput
