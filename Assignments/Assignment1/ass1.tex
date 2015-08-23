@@ -62,6 +62,9 @@ For this question, $G$ is a graph with $n$ vertices.
     a cycle of even length.
 \end{proposition}
 \begin{proof}
+    First observe that $n \geq 3$,
+    since $\delta(G) \geq 3$.
+
     Observe that $G$ always contains at least one cycle, since
     by the handshaking lemma,
     \begin{equation}
@@ -87,15 +90,23 @@ For this question, $G$ is a graph with $n$ vertices.
     and $C_2$ have odd length.
     
     Suppose that $C_1$ and $C_2$ contain $k$ common edges. 
+    We see that these edges must form a connected path, since if
+    $ab,cd \in E(C_1)\cap E(C_2)$ then segments of $C_1$ and $C_2$
+    are paths joining $b$ and $c$. But since $T$ is a tree, there is a unique
+    path joining $b$ and $c$ if $b\neq c$. Hence we either have $b = c$, or
+    there is a unique path in $E(C_1)\cap E(C_2) \cap E(T)$ joining $b$ and $c$.
+    
     We must have $k \geq 1$ since $t$ is common.
     Consider the cycle $C$ obtained by joining together $C_1$ and $C_2$, and
-    removing the common edges this is possible since $k \geq 1$. Hence $|E(C)| = |E(C_1)|+|E(C_2)|-2k$.
+    removing the common edges this is possible since $k \geq 1$,
+    and $C$ is indeed a cycle since the common edges form a path. Hence $|E(C)| = |E(C_1)|+|E(C_2)|-2k$.
     But then $|E(C)|$ is even, since by assumption $|E(C_1)|$ and $|E(C_2)|$
     are odd.
     
     Hence $G$ contains an even cycle when $G$ is connected.
     
     If $G$ is not connected, then each connected component $H$
+    has at least three vertices, since it 
     satisfies $\delta(H) \geq 3$, so we may run the above argument
     to show that $H$ has a cycle of even length, so hence $G$
     has a cycle of even length.
@@ -166,7 +177,7 @@ We consider the following condition:
     
     Let
     \begin{equation}
-        q = \min\{ j \; d_j > 1\}.
+        q = \min\{ j \;:\; d_j > 1\}.
     \end{equation}
 %    We know that $q > 1$, since we proved that $\Delta \geq 2$. 
 %    Now if $q = n$, then the sequence must be $\bd = (1,1,\ldots,2)$, so
@@ -380,9 +391,16 @@ The number of vertices of $G$ not covered by $F$ is at most $(\Delta-1)\nu$.
     of each edge in $F$. That is, for each $e \in F$ there
     is exactly one $k$ so that $v_k$ is incident on $e$. 
     Now, for each $1 \leq k \leq \nu$, $v_k$ has at most $\Delta - 1$
-    unmatched neighbours since it has at most $\Delta$ neighbours in total
-    and it connected to at least one matched vertex. This means that there cannot be more
-    than $\nu(\Delta-1)$ unmatched vertices. 
+    unmatched neighbours since it has at most $\Delta$ neighbours in total.    
+    
+    Since $\delta(G) \geq 1$, each unmatched vertex has a neighbour,
+    so by Proposition \ref{4b1} each unmatched vertex is attached to a matched
+    vertex.
+    
+    Hence by counting all possible neighbours of matched vertices, we are
+    counting all unmatched vertices. So for each $\nu_k$, there
+    are at most $\Delta-1$ unmatched neighbours. Hence there cannot
+    be more than $\nu(\Delta - 1)$ unmatched vertices in total.    
 \end{proof}
 \begin{proposition}[Part (b) iv]
 \label{4b4}
@@ -491,21 +509,29 @@ also contains $f$.
 \end{proposition}
 \begin{proof}
     Let $H$ be a connected component of $G-P$ with at least two vertices, and 
-    let $x,y \in V(H)$. It is required to prove that $H - xy$ is connected. 
+    let $x,y \in V(H)$ with $xy \in E(H)$. It is required to prove that $H - xy$ is connected. 
+    This will automatically imply that $|V(H)| > 2$, and hence that $H$ is
+    $2$-edge-connected.
     In other words, we must prove that $H$ contains a cycle containing $xy$. 
     Note that there exists a cycle containing $xy$ in $G$ since $G$ is $2$-edge-connected.
     
     We now show that there exists a cycle containing $xy$ in $G$ which is disjoint
     from every element of $P$. 
     
-    Suppose that $C$ is a cycle in $G$ containing $xy$ which also contains $e \in P$.
-    But then since $C$ is a cycle containing $e$, it must also contain all $f$
-    such that $f \sim e$. Hence if $C$ is a cycle containing some element of $P$,
-    it must contain all elements of $P$. So it suffices to show that there is a cycle
-    containing $xy$ which does not contain a particular element of $P$.
+    Let $e \in P$. Then since $xy \nsim e$, there is a cycle $C$ in $G$ 
+    containing $xy$ but not $e$ by Propositions \ref{5a} and \ref{5b}. 
+    Now let $f \in P$. Then if $f \in E(C)$, by Proposition \ref{5b},
+    we must have $e \in C$ since $e \sim f$. But $e \notin E(C)$, hence
+    $C$ contains no element of $P$.
     
-    Let $e \in P$, then since $e \nsim xy$, by Proposition \ref{5a}, there is a cycle
-    containing $xy$ but not $e$.
+%    Suppose that $C$ is a cycle in $G$ containing $xy$ which also contains $e \in P$.
+%    But then since $C$ is a cycle containing $e$, it must also contain all $f$
+%    such that $f \sim e$. Hence if $C$ is a cycle containing at least one element of $P$,
+%    then it must contain all elements of $P$. So it suffices to show that there is a cycle
+%    containing $xy$ which does not contain a single element of $P$.
+%    
+%    Let $e \in P$, then since $e \nsim xy$, by Proposition \ref{5a}, there is a cycle
+%    containing $xy$ but not $e$.
     
     Hence, there is a cycle $C$ containing $xy$ disjoint from $P$, so $C$ is a cycle
     in $G-P$ containing $xy$. Hence, $H$ contains a cycle containing $xy$. Therefore,
