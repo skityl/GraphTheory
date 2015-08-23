@@ -21,9 +21,9 @@
 
 \unswtitle{}
 
-\section{Question 1}
+\section*{Question 1}
 For this question, $G$ is a graph with $n$ vertices.
-\begin{proposition}
+\begin{proposition}[Part (a)]
 \label{1a}
     Suppose that $G$ has at least $n$ edges. Then $G$ contains a cycle.
 \end{proposition}
@@ -41,7 +41,7 @@ For this question, $G$ is a graph with $n$ vertices.
     But this contradicts $|E(G_j)| \geq |V(G_j)|$. Hence $G_j$ contains a cycle.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}[Part (b)]
 \label{1b}
     Suppose that $G$ has strictly more than $n$ edges. Then $G$ contains
     two distinct (not necessarily disjoint) cycles.
@@ -57,7 +57,7 @@ For this question, $G$ is a graph with $n$ vertices.
     and $f \notin C_2$, the cycles are distinct.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}[Part (c)]
     Suppose that $G$ has minimum degree $\delta(G) \geq 3$. Then $G$ contains
     a cycle of even length.
 \end{proposition}
@@ -102,7 +102,7 @@ For this question, $G$ is a graph with $n$ vertices.
    
 \end{proof}
 
-\section{Question 2}
+\section*{Question 2}
 We shall say that a graph $G$ on $n$ vertices has degree sequence $\bd = (d_1,d_2,\ldots,d_n)$
 if $\bd$ is a nondecreasing sequence and the degrees
 of the vertices of $G$ when arranged in nondecreasing order are the entries of $\bd$.
@@ -112,7 +112,7 @@ We consider the following condition:
 \sum_{i=1}^n d_i = 2n-2.
 \end{equation}
 
-\begin{proposition}
+\begin{proposition}[Part (a)]
 \label{2a}
     Suppose that $T$ on $n$ vertices with degree sequence $\bd$.
     Then $\bd$ satisfies (\ref{star}).
@@ -125,7 +125,7 @@ We consider the following condition:
     \end{equation}
     So (\ref{star}) holds.
 \end{proof} 
-\begin{proposition}
+\begin{proposition}[Part (b)]
 \label{2b}
     Now suppose that $n = 2$, and $\bd$ is a sequence such that
     (\ref{star}) holds. Then there exists a tree $T$ with degree
@@ -136,7 +136,7 @@ We consider the following condition:
     we can choose $T$ to be the unique tree on two vertices. Then
     we have $d_1 = d_2 = 1$.
 \end{proof}
-\begin{proposition}
+\begin{proposition}[Part (c)]
 \label{2c}
     Now let $n \geq 3$, and let $\bd$ be a sequence such that (\ref{star}) holds.
     Let $\delta = d_1$ and $\Delta = d_n$ be the minimum and maximum entries of $\bd$
@@ -168,15 +168,38 @@ We consider the following condition:
     \begin{equation}
         q = \min\{ j \; d_j > 1\}.
     \end{equation}
-    We know that $q > 1$, since we proved that $\Delta \geq 2$. Consider
+%    We know that $q > 1$, since we proved that $\Delta \geq 2$. 
+%    Now if $q = n$, then the sequence must be $\bd = (1,1,\ldots,2)$, so
+%    it must be $\bd = (1,1,2)$. In this case, choose $T$ to be the tree:
+%    \begin{center}
+%        \begin{tikzpicture}
+%            \draw [fill] (0,0) circle (0.1);
+%            \draw [fill] (0,1) circle (0.1);
+%            \draw [fill] (1,0) circle (0.1);
+%            
+%            \draw [-] (0,0) -- (0,1);
+%            \draw [-] (0,0) -- (1,0);
+%        \end{tikzpicture}
+%    \end{center}
+%    Then $T$ has degree sequence $(1,1,2)$.
+    
+    Consider
     the sequence of $n-1$ numbers,
     \begin{equation}
         \tilde{\bd} = (d_2\ldots,d_q-1,\ldots,d_n).
     \end{equation}
+    if $q < n$, and $\tilde{\bd} = (d_2,\ldots,d_n-1)$ if $q = n$.
     Then we can see that $\bd$ is a sequence satisfying (\ref{star}), since
+    for $q < n$:
     \begin{equation}
         d_2+\cdots+(d_q-1) + \cdots + d_n = 2n-2-1-d_n = 2n-4 = 2(n-1) - 2.
-    \end{equation}  
+    \end{equation}
+    
+    If $q = n$, then we must have $\bd = (1,1,\ldots,1,d_n)$. Hence $n-1+d_n = 2n-2$, so
+    $d_n = n-1$, and 
+    \begin{equation}
+        d_2 + \cdots + d_n-1 = \underbrace{1+\cdots+1}_{n-2\text{ times}}+d_n-1 = 2(n-2)  = 2(n-1)-2.
+    \end{equation}
     Hence, there exists a tree with degree sequence $\tilde{\bd}$ by our inductive
     hypothesis. Let $T$ be such a tree, and let $v$ be a vertex
     with degree $d_q - 1$. 
@@ -185,7 +208,7 @@ We consider the following condition:
     has $n$ vertices, and has degree sequence $(1,d_2,\ldots,d_n) = \bd$.
     Thus the assertion is proved by induction since by Proposition \ref{2b} it is true for $n=2$.
 \end{proof}
-\begin{proposition}
+\begin{proposition}[Part (d)]
 \label{2d}
     There exist two non-isomorphic trees with identical degree sequence.
 \end{proposition}
@@ -242,7 +265,7 @@ We consider the following condition:
     leaves, but $T_2$ only has a vertex of degree $4$ attached to $2$ leaves.
 \end{proof}
 
-\section{Question 3}
+\section*{Question 3}
 For this question, we let $G$ be the following graph on 10 vertices:
 \begin{center}
 \begin{tikzpicture}
@@ -279,7 +302,7 @@ For this question, we let $G$ be the following graph on 10 vertices:
 \node [right] at (7.1,2) {$10$};
 \end{tikzpicture}
 \end{center}
-\begin{proposition}
+\begin{proposition}[Part (a)]
 \label{3a}
     There is no perfect matching of $G$.
 \end{proposition}
@@ -293,7 +316,7 @@ For this question, we let $G$ be the following graph on 10 vertices:
     $\{5,6,7\}$ and $\{8,9,10\}$. Hence $q(G-S) = 3$. But $|S| = 1$, so $q(G-S) > |S|$.
     Thus there is no perfect matching of $G$.
 \end{proof}
-\begin{proposition}
+\begin{proposition}[Part (b)]
 \label{3b}
     A maximum matching of $G$ is:
     \begin{equation}
@@ -308,8 +331,8 @@ For this question, we let $G$ be the following graph on 10 vertices:
 \end{proof} 
 
 
-\section{Question 4}
-\begin{proposition}
+\section*{Question 4}
+\begin{proposition}[Part (a)]
 \label{4a}
     Let $G$ be a graph on $2r$ vertices, with minimum degree $\delta(G) \geq r$
     with $r \geq 1$. Then $G$ has a perfect matching.
@@ -326,7 +349,7 @@ degree $\delta(G) \geq 1$, and $\Delta := \Delta(G)$ is the maximum degree.
 Let $F$ be a maximum matching of $G$, and let $\nu := \nu(G) = |F|$ be the size of
 a maximum matching in $G$. Recall that we say that a vertex $x$ of $G$
 is covered by $F$ if $x$ is an endpoint of an edge in $F$.
-\begin{proposition}
+\begin{proposition}[Part (b) i]
 \label{4b1}
     Let $x$ be a vertex not covered by $F$. Then every neighbour of $x$
     is covered by $F$.
@@ -336,7 +359,7 @@ is covered by $F$ if $x$ is an endpoint of an edge in $F$.
     is a matching strictly larger than $F$, which contradicts the assumption
     that $F$ is maximum. Hence every neighbour of $x$ is covered by $F$.
 \end{proof}
-\begin{proposition}
+\begin{proposition}[Part (b) ii]
 \label{4b2}
     Let $x,y$ be two distinct vertices not covered by $F$, and $a,b \in V(G)$.
     If $xa,yb \in E(G)$, then $ab \notin F$.
@@ -348,7 +371,7 @@ is covered by $F$ if $x$ is an endpoint of an edge in $F$.
     strictly larger than $F$, contradicting the assumption that $F$ is maximum.
 \end{proof} 
 
-\begin{proposition}
+\begin{proposition}[Part (b) iii]
 \label{4b3}
 The number of vertices of $G$ not covered by $F$ is at most $(\Delta-1)\nu$.
 \end{proposition}
@@ -361,8 +384,7 @@ The number of vertices of $G$ not covered by $F$ is at most $(\Delta-1)\nu$.
     and it connected to at least one matched vertex. This means that there cannot be more
     than $\nu(\Delta-1)$ unmatched vertices. 
 \end{proof}
-
-\begin{proposition}
+\begin{proposition}[Part (b) iv]
 \label{4b4}
 We have $\nu \geq n/(\Delta+1)$.
 \end{proposition}
@@ -381,18 +403,24 @@ We have $\nu \geq n/(\Delta+1)$.
     So $\nu \geq n/(\Delta+1)$.
 \end{proof}
 
-\section{Question 5}
+\begin{remark}
+    The above estimate is sharp. Consider a triangle graph. 
+    In this case, $n = 3$, $\Delta = 2$ and $\nu = 1$.
+\end{remark}
+
+
+\section*{Question 5}
 For this question, $G$ is a 2-edge connected graph. That is, $G$
 is connected and for any $e \in E(G)$, $G-e$ is connected. 
 We define a relation $\sim$ on $E(G)$ as follows: $e \sim f$ if and only
 if $e = f$ or $G - \{e,f\}$ is disconnected.
-\begin{proposition}
+\begin{proposition}[Part (a)]
 \label{5a}
     Let $e,f \in E(G)$ be such that every cycle containing $e$ contains $f$
     and vice versa.
     Then $e \sim f$.
 \end{proposition}
-\begin{proposition}    
+\begin{proof}    
     We prove the contrapositive: we show that if $e \nsim f$, then there
     is a cycle containing $e$ but not $f$.
     
@@ -403,9 +431,9 @@ if $e = f$ or $G - \{e,f\}$ is disconnected.
     Hence if every cycle containing $e$ contains $f$, then $e \sim f$.
     Thus \emph{a forteriori}, if every cycle containing $e$ contains $f$
     and vice versa, $e \sim f$.
-\end{proposition}
+\end{proof}
 
-\begin{proposition}
+\begin{proposition}[Part (b)]
 \label{5b}
 Suppose we have $e,f \in E(G)$ with $e \sim f$. Then every cycle which contains $e$
 also contains $f$.
@@ -416,7 +444,7 @@ also contains $f$.
     Hence, $G - \{e,f\}$ is disconnected, but since $G$ is $2$-edge connected,
     we have that $G - e$ and $G-f$ are connected. 
     
-    Let $C$ be a cycle in $G$ which contains $e$ but not $f$. Let $a,b \in V(G)$
+    Assume, to find a contradiction, that $C$ be a cycle in $G$ which contains $e$ but not $f$. Let $a,b \in V(G)$
     be two vertices which are disconnected in $G-\{e,f\}$. Let $P$ be a path joining
     $a$ and $b$ in $G-f$. Hence $P$ must pass through $e$.
     
@@ -426,7 +454,7 @@ also contains $f$.
     Thus, every cycle containing $e$ must contain $f$.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}[Part (c)]
 \label{5c}
     $\sim$ is an equivalence relation on $E(G)$, and the equivalence classes
     of $\sim$ are subsets of cycles of $G$.
@@ -456,7 +484,8 @@ also contains $f$.
     Thus $[e]_\sim \subseteq E(C)$.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}[Part (d)]
+\label{5d}
     Let $P \subseteq E(G)$ be an equivalence class of $\sim$. Then every connected
     component of $G-P$ with at least two vertices is $2$-edge-connected.
 \end{proposition}
