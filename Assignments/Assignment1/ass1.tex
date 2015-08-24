@@ -387,20 +387,27 @@ is covered by $F$ if $x$ is an endpoint of an edge in $F$.
 The number of vertices of $G$ not covered by $F$ is at most $(\Delta-1)\nu$.
 \end{proposition}
 \begin{proof}
-    Let $v_1,v_2,\ldots,v_\nu$ be a set of representative vertices
-    of each edge in $F$. That is, for each $e \in F$ there
-    is exactly one $k$ so that $v_k$ is incident on $e$. 
-    Now, for each $1 \leq k \leq \nu$, $v_k$ has at most $\Delta - 1$
-    unmatched neighbours since it has at most $\Delta$ neighbours in total.    
+    We select a set of representative vertices $\{v_e\;:\; e \in F\}$
+    for each edge in $F$, so that $v_e$ is incident on $e$, according to the following
+    procedure: Let $e \in F$:
+    \begin{enumerate}
+        \item{} If the vertices of $e$ are connected to no unmatched vertex, select
+        $v_e$ arbitrarily.
+        \item{} If $e = ab$ and $a$ has an unmatched neighbour, select $v_e = a$.
+    \end{enumerate}
+    We see that the second step is never ambiguous since, if $e = ab \in F$,
+    and $a$ has an unmatched neighbour, then by Proposition \ref{4b2}, 
+    $b$ cannot have an unmatched neighbour. 
     
-    Since $\delta(G) \geq 1$, each unmatched vertex has a neighbour,
-    so by Proposition \ref{4b1} each unmatched vertex is attached to a matched
-    vertex.
+    Now, if $x$ is an unmatched vertex, by Proposition \ref{4b1}, $x$ has a matched
+    neighbour. Hence, $x$ has as neighbour some $v_e$ for $e \in E$, since
+    we have selected the set $\{v_e\;:\;e \in F\}$ to include all matched
+    vertices connected to unmatched vertices.
     
-    Hence by counting all possible neighbours of matched vertices, we are
-    counting all unmatched vertices. So for each $\nu_k$, there
-    are at most $\Delta-1$ unmatched neighbours. Hence there cannot
-    be more than $\nu(\Delta - 1)$ unmatched vertices in total.    
+    Hence, we can count all unmatched vertices (possibly double counting) by counting the
+    unmatched neighbours of each element of $\{v_e\;:\;e \in F\}$. Since $v_e$
+    has a matched neighbour, it has at most $\Delta-1$ unmatched neighbours.
+    Hence there can be no more than $\nu(\Delta-1)$ unmatched vertices in total.    
 \end{proof}
 \begin{proposition}[Part (b) iv]
 \label{4b4}
