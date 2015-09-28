@@ -1,0 +1,163 @@
+\documentclass{unswmaths}
+\usepackage{shortcuts}
+\usepackage[all]{xy}
+\usepackage{csquotes}
+\usepackage{color}
+\usepackage[square,numbers]{natbib}
+
+\begin{document}
+
+\subject{Graph Theory}
+\author{Ed McDonald}
+\title{Assignment 2}
+\studentno{z3375335}
+
+
+\setlength\parindent{0pt}
+
+
+\unswtitle{}
+
+\section*{Question 1}
+For graphs $G$ and $H$, we let consider the graph
+product $G\times H$ as having the vertex set $V(G)\times V(H)$,
+and we have an edge $(v,w)(v',w') \in E(G\times H)$
+if and only if $v = v'$ and $ww' \in E(H)$ or $vv' \in E(G)$ and $w = w'$. 
+
+For a graph $G$, $\alpha(G)$ denotes the size of the largest independent
+set in $G$.
+
+\begin{lemma}[Part (a)]
+    Let $G$ be a graph on $n \geq 2$ vertices, and let $r \geq 1$. Then
+    \begin{equation*}
+        \alpha(G \times K_r) \leq n.
+    \end{equation*}     
+\end{lemma}
+\begin{proof}
+    It is sufficient to show that any set of $n+1$ vertices
+    in $G\times K_r$ has an adjacent pair. 
+    Let $(v_1,w_1),(v_2,w_2),\ldots,(v_{n+1},w_{n+1}) \in V(G\times K_r)$,
+    where each $v_k \in G$ and each $w_k \in K_r$. 
+    
+    By the pigeonhole principle, not all the $v_k$ can be distinct,
+    so we must have $v_k = v_j$ for some $j \neq k$. Now since
+    $K_r$ is complete, $w_kw_j \in E(K_r)$. Hence, $(v_k,w_k)(v_j,w_j) \in E(G\times K_r)$,
+    so any set of $n+1$ vertices must have an adjacent pair.
+    
+    Hence, $\alpha(G\times K_r) \leq n$.    
+\end{proof}
+
+\begin{lemma}[Part (b)]
+\label{1b}
+    For a graph $G$ on $n \geq 2$ vertices, and $r \geq 2$, we have
+    $\alpha(G\times K_r) = n$ if and only if $r = \chi(G)$.
+\end{lemma}
+\begin{proof}
+    Suppose first that $r = \chi(G)$. We must show that $\alpha(G\times K_r)$
+    has an independent set of size $n$. Choose an $r$-colouring
+    for $G$, $c:G\to \{1,2,\ldots,r\}$. 
+       
+    FINISH LATER.
+    
+\end{proof}
+
+\begin{corollary}[Part (c)]
+    Hence for a graph $G$ on $n\geq 2$ vertices, we have:
+    \begin{equation*}
+        \chi(G) = \min\{r > 0\;:\;\alpha(G\times K_r) = n\}.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    By lemma $1b$, we have that $\alpha(G\times K_r) = n$ if and only
+    if $r = \chi(G)$. 
+    
+    Hence, if $r < \chi(G)$, we must have $\alpha(G\times K_r) < n$. 
+    
+    Thus the minimum value of $r$ such that $\alpha(G\times K_r) = n$
+    must be $\chi(G)$, and so we are done.
+\end{proof} 
+
+\section*{Question 2}
+For this question, $G$ is a $3$-connected graph and $xy \in E(G)$. 
+We use the notation $G/xy$ to denote the graph obtained from $G$
+by contracting $xy$.
+
+\begin{proposition}[Part (a)]
+    If $G/xy$ is $3$-connected, then $G - \{x,y\}$ is $2$-connected.
+\end{proposition}
+\begin{proof}
+    To show that $G-\{x,y\}$ is $2$-connected, at the very least it must have at
+    least three vertices. To show this, we note that by assumption $G/xy$ is $3$-connected,
+    and $|V(G/xy)| = |V(G)|-1$. Since $G/xy$ is itself $3$-connected, we have $|V(G/xy)| > 3$.
+    Hence, $|V(G)| > 4$. Thus, $|V(G-\{x,y\})| > 2$. 
+    
+    Now we need to show that $G-\{x,y\}$ is connected, and for any vertex $v \in V(G-\{x,y\})$,
+    $G-\{x,y,v\}$ is connected. 
+    
+    Now since $G$ is by assumption $3$-connected, automatically we have that $G-\{x,y\}$ is connected.
+    Hence it is only required to show that $G-\{x,y,v\}$ is connected for all
+    vertices $v \in V(G-\{x,y\})$. 
+    
+    So let $v \in V(G-\{x,y\})$. Hence $v \in V(G/xy)$.
+    Let $w$ be the vertex in $G/xy$ formed from merging $x$ and $y$.
+    
+    Thus, $G/xy-\{v,w\}$ is connected since $G/xy$ is $3$-connected by assumption.
+    
+    Let $p,q \in V(G-\{x,y,v\})$. Since $G/xy-\{v,w\}$ is connected,
+    there is a path $P$ joining $p$ and $q$ in $G/xy$ which avoids $v$ and $w$. 
+    
+    Hence every edge of $P$ consists of edges of $G/xy-\{v,w\}$. 
+    Since every edge of $G/xy-\{v,w\}$ is an edge of $G$, $P$
+    can be considered as a path in $G$. Since it avoids $v$ and $w$, it 
+    must avoid $x,y$ and $v$ in $G$.     
+    
+    Thus $G-\{x,y,v\}$ is
+    connected, and so $G-\{x,y\}$ is connected. 
+\end{proof}
+
+\begin{proposition}[Part (b)]
+    Now if $G/xy$ is \emph{not} $3$-connected, then $G-\{x,y\}$ is not
+    $2$-connected.
+\end{proposition}
+\begin{proof}
+%    If $G/xy$ is not $3$-connected, then in the most trivial case,
+%    we have $|V(G/xy)| \leq 3$, which implies that $|V(G-\{x,y\})| \leq 2$.
+%    But this trivially means that $G-\{x,y\}$ is not $2$-connected, so we
+%    consider the case where $|V(G/xy)| > 3$. 
+%    
+%    For $G/xy$ to not be $3$-connected means that there must be a pair
+%    of vertices $v,w \in V(G/xy)$ such that $G/xy - \{v,w\}$
+%    is disconnected. Now, at least one of $v,w$
+%    must be a vertex of $G/xy$ that is not formed
+%    from contracting $x$ and $y$. Without loss
+%    of generality let such a vertex be $v$. 
+%    
+%    Hence, $v$ can be considered as a vertex of $G-\{x,y\}$,
+%    and we can consider $G-\{x,y,v\}$. 
+
+    We shall prove the contrapositive. Suppose that $G-\{x,y\}$
+    is $2$-connected. Hence, $|V(G-\{x,y\})| > 2$, hence $|V(G/xy)| > 3$. 
+    
+    It remains to prove that removing fewer than three vertices
+    from $G/xy$ does not produce a disconnected graph.
+    
+    Suppose that $v,w,p,q \in V(G/xy)$ are distinct. 
+    There are two cases to consider: first, where neither $v$ nor $w$
+    is formed from contracting $x$ and $y$, and secondly where one of $v$ or $w$
+    is formed from contracting $x$ and $y$.
+    
+    In the first case, $v$ and $w$ can be considered as vertices in $G-\{x,y\}$.
+    Now if neither $p$ nor $q$ are formed from contracting $xy$, then there
+    is a path in $G-\{x,y\}$. 
+    
+    FINISH LATER.
+    
+\end{proof}
+
+\section{Question 3}
+For this question, $G$ is a graph and $P_G(k)$ denotes
+the number of $k$-colourings of $G$. It is known that $P_G(k)$
+
+
+
+\end{document}
