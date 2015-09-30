@@ -4,6 +4,7 @@
 \usepackage{csquotes}
 \usepackage{color}
 \usepackage[square,numbers]{natbib}
+\usepackage{tikz}
 
 \begin{document}
 
@@ -55,10 +56,30 @@ set in $G$.
 \begin{proof}
     Suppose first that $r = \chi(G)$. We must show that $\alpha(G\times K_r)$
     has an independent set of size $n$. Choose an $r$-colouring
-    for $G$, $c:G\to \{1,2,\ldots,r\}$. 
+    for $G$, $c:G\to \{1,2,\ldots,r\}$. Let $V_j = c^{-1}(\{j\})$
+    be the set of vertices of $G$ with colour $j$.
        
-    FINISH LATER.
+    Label the vertices of $K_r$ as $w_1,w_2,\ldots, w_r$. 
     
+    Consider the set of vertices $S = \{(v,w_j)\;v \in V_j, 0 \leq j \leq r\}$.
+    We shall show that $S$ is an independent set. Let $(v,w_j), (v',w_k) \in S$. 
+    Then the vertices $(v,w_j),(v',w_k)$ are adjacent if and only if one of
+    two possibilities holds:
+    
+    Firstly, if $w_j = w_k$, then $(v,w_j),(v',w_k)$ are adjacent
+    if and only if $vv' \in E(G)$. But this is impossible since $v,v' \in V_j$.
+    So $v$ and $v'$ both have colour $j$ so cannot be adjacent.
+    
+    The second case is that $j \neq k$, but we have $v = v'$. But then
+    $v$ has colour $j$, and $v'$ has colour $k$. But this is impossible
+    since $v = v'$.
+    
+    Thus, the vertices $(v,w_j),(v',w_k)$ are never adjacent.
+    
+    Now, the size of $S$ is just $|S| \sum_{j = 1}^r |\{(v,w_j)\;:\;v \in V_j\}| = \sum_{j=1}^r |V_j| = |V(G)|$,
+    since the colour clases form a partition of $G$.
+    
+    Hence, $|S| = n$, so we have an independent set of size $n$.    
 \end{proof}
 
 \begin{corollary}[Part (c)]
@@ -120,44 +141,374 @@ by contracting $xy$.
     $2$-connected.
 \end{proposition}
 \begin{proof}
-%    If $G/xy$ is not $3$-connected, then in the most trivial case,
-%    we have $|V(G/xy)| \leq 3$, which implies that $|V(G-\{x,y\})| \leq 2$.
-%    But this trivially means that $G-\{x,y\}$ is not $2$-connected, so we
-%    consider the case where $|V(G/xy)| > 3$. 
-%    
-%    For $G/xy$ to not be $3$-connected means that there must be a pair
-%    of vertices $v,w \in V(G/xy)$ such that $G/xy - \{v,w\}$
-%    is disconnected. Now, at least one of $v,w$
-%    must be a vertex of $G/xy$ that is not formed
-%    from contracting $x$ and $y$. Without loss
-%    of generality let such a vertex be $v$. 
-%    
-%    Hence, $v$ can be considered as a vertex of $G-\{x,y\}$,
-%    and we can consider $G-\{x,y,v\}$. 
-
     We shall prove the contrapositive. Suppose that $G-\{x,y\}$
-    is $2$-connected. Hence, $|V(G-\{x,y\})| > 2$, hence $|V(G/xy)| > 3$. 
+    is $2$-connected. In particular, this means that $G-\{x,y\}$
+    has at least three vertices, so $G$ has at least five vertices.
+    Hence, $G/xy$ has at least four vertices. 
     
-    It remains to prove that removing fewer than three vertices
-    from $G/xy$ does not produce a disconnected graph.
+    Now to complete the proof we need to show that removing any $2$ element
+    subset of $G/xy$ does not disconnect $G/xy$. 
     
-    Suppose that $v,w,p,q \in V(G/xy)$ are distinct. 
-    There are two cases to consider: first, where neither $v$ nor $w$
-    is formed from contracting $x$ and $y$, and secondly where one of $v$ or $w$
-    is formed from contracting $x$ and $y$.
+    Now by assumption, $G-\{x,y\}$ is $2$-connected. In particular
+    this means that it is connected, and for any $v \in V(G)-\{x,y\}$
+    we have that $G-\{x,y,v\}$ is connected.
     
-    In the first case, $v$ and $w$ can be considered as vertices in $G-\{x,y\}$.
-    Now if neither $p$ nor $q$ are formed from contracting $xy$, then there
-    is a path in $G-\{x,y\}$. 
+    Now, let $u,w \in V(G/xy)$. Then there are two possibilities:
+    \begin{enumerate}
+        \item{} One of $u$ or $v$ is formed by contracting $x$ and $y$.
+        \item{} Neither of $u$ and $v$ is formed by contracting $x$ and $y$.
+    \end{enumerate}
+    In the first case, we may assume without loss of generality that $u$
+    is formed from contracting $x$ and $y$. We now
+    consider $G/xy-\{u,w\}$. This is simply $G-\{x,y,w\}$. But by assumption
+    this is connected, hence $G/xy-\{u,w\}$ is connected.
     
-    FINISH LATER.
+    In the second case, we have $u,v \in V(G-\{x,y\})$. Now, let $H = G/xy-\{u,v\}$.
     
+    Now, let $p,q \in V(H)$. We must show that there is a path joining $p$ and $q$
+    in $H$. Since neither $u$ nor $v$
+    is formed from contracting $x$ and $y$, it is sufficient to show that there is a path joining $p$
+    and $q$ in $G$ which avoids $u$ and $v$. Hence, we search for a path
+    in $G-\{u,v\}$. However, by assumption $G$ is $3$-connected, so such a path exists.
+    Hence, $H$ is connected. 
+    
+    Thus, $G/xy$ is $3$-connected, as required.
 \end{proof}
 
-\section{Question 3}
+\section*{Question 3}
 For this question, $G$ is a graph and $P_G(k)$ denotes
 the number of $k$-colourings of $G$. It is known that $P_G(k)$
+is polynomial in $k$, and is hence called the chromatic polynomial of $G$.
+
+From the problem sheets, we know that if $G$ has $n$ vertices then $P_G(k)$
+is a monic polynomial of degree $n$, and if $G$ has $m$ edges 
+then the coefficient of $k^{n-1}$ is $-m$.
+
+Since this is not proved in the notes, we give a short proof here. 
+Let $x,y \in V(G)$, and let $G' = G-xy$ and $G''$ be the graph
+obtained by contracting $x$ and $y$. 
+Now a $k$-colouring of $G$ is exactly a $k$-colouring
+of $G'$ which assigns different colours to $x$ and $y$. 
+The $k$-colourings of $G$ which assign the same colours to $x$ and $y$
+are exactly the $k$-colourings of $G''$. Hence, $P_G(k) = P_{G'}(k)-P_{G''}(k)$. 
+Hence if we do induction on the number of edges of $G$, we can prove the
+required properties of $P_G(k)$.
+
+\begin{lemma}[Part (a)]
+    There is no graph $G$ with chromatic polynomial
+    \begin{equation*}
+        P_G(k) = k^4-4k^3+8k^2-5k.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let $G$ be such a graph. Then $G$ must have $4$
+    vertices and $4$ edges. Hence, by the handshaking
+    lemma the average degree of $G$ is $2$. Hence $G$ is $2$-regular
+    or has a vertex of degree $3$.
+    
+    If $G$ is $2$-regular, then $G = C_4$ is a cyclic graph on $4$ vertices.
+    Hence, in this case, the number of $2$-colourings of $G$ is $2$.
+    
+    However $P_G(2) = 16-32+32-10 = 6$, so $G \neq C_4$.
+    
+    The only other case is that $G$ has a vertex of degree $3$. 
+    Since $|V(G)| = 4$, this means that $G$ has a vertex $v$, connected to every 
+    other vertex. Hence if we have a $2$-colouring of $G$, $c:V(G)\to \{1,2\}$
+    we either have $c(v) = 1$ and all other vertices have colour $2$,
+    or $c(v) = 2$ and all other vertices have colour $1$.
+    Hence there are at most two $2$-colourings of $G$. So we cannot
+    have $P_G(k)$ as the given polynomial.
+\end{proof}
+
+\begin{lemma}[Part (b)]
+\label{3b}
+    Let $G$ be a graph, with $v \in V(G)$. Then the number of $k$-colourings
+    of $G$ which assign colour $1$ to $v$ is given by $P_G(k)/k$.
+\end{lemma}
+\begin{proof}
+    Let $C_i$ be the number of colourings which assign colour $i$ to $v$. 
+    Then, 
+    \begin{equation*}
+        P_G(k) = C_1+C_2+\cdots+C_k.
+    \end{equation*}
+    Now by symmetry, we have $C_1 = C_i$ for all $i$, hence,
+    \begin{equation*}
+        P_G(k) = kC_1
+    \end{equation*}
+    as required.
+\end{proof}
+
+\begin{lemma}[Part (c)]
+\label{3c}
+    Let $G$ be a graph with connected components $G_1,G_2,\ldots,G_r$.
+    Then 
+    \begin{equation*}
+        P_G(k) = \prod_{j=1}^r P_{G_j}(k).
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let $k \geq 1$. Then for each $1 \leq j \leq r$, a $k$-colouring
+    of $G$ induces a $k$-colouring of $G_j$. Thus each $k$-colouring
+    of $G$ is produced by an individual $k$ colouring of each $G_j$. 
+    Hence, the number of $k$-colourings of $G$ is given by a $k$-colouring
+    of $G_1$, times the number of $k$-colourings of $G_2$, times 
+    the number of $k$-colourings of $G_2$, and etc., until we have
+    a $k$-colouring for $G$.
+\end{proof}
+
+\begin{lemma}[Part (d)]
+    Let $G$ have $r$ connected components. If:
+    \begin{equation*}
+        P_G(k) = c_0 + c_1k+c_2k^2 + \cdots + c_nk^n
+    \end{equation*}
+    we have $c_0 = c_1 = \ldots = c_{r-1} = 0$
+    and $c_r \neq 0$.
+    
+    In other words, if $G$ has $r$ connected components, then
+    $r$ is the minimal positive integer such that the coefficient
+    of $k^r$ in $P_G(k)$ is nonzero.
+    
+    Alternatively, $r$ is the number of times $k$ divides $P_G(k)$.
+    
+\end{lemma}
+\begin{proof}
+    First we consider the case where $r = 1$. That is,
+    we wish to show that if $G$ is a connected graph, 
+    then $k$ divides $P_G(k)$ exactly once.
+    
+    Let $f(k) = P_G(k)/k$. By lemma \ref{3b}, $f$ is a polynomial.
+    
+    Identify $f$ with its continuous extension $f:\Rl\to \Rl$. 
+    We wish to show that $f(0) \neq 0$. Now, $f(1) = P_G(1)$.
+    But since $G$ is connected, there is no $1$-colouring, hence 
+    $f(1) = P_G(1) = 0$.
+    
+    Now suppose, to find a contradiction, that $f(0) = 0$.
+    Then $f(0) = f(1) = 0$. Hence since $f$ is a differentiable
+    function, there must exist some $x \in (0,1)$ with $f'(x) = 0$.
+    Since $f(x) = P_G(x)/x$, we have that $f'(x) = (xP_G'(x)-P_G(x))/x^2$.
+    Hence if $f'(x) = 0$ and $x \in (0,1)$, we have that $P_G(x) = 0$.
+    Hence, $P_G$ as a zero  $x \in (0,1)$. Thus $f(x) = 0$. Hence, 
+    there is an additional zero $x' \in (0,x)$. So by induction
+    $f$ has infinitely many zeros in $(0,1)$. But this is impossible
+    since $f$ is a polynomial. Thus, $f(x) = 0$, and so $k^2$ does not
+    divide $f$.
+
+    Let the connected components of $G$ be $\{G_i\}_{i=1}^r$. Then
+    by lemma \ref{3c}, we have:
+    \begin{equation*}
+        P_G(k) = \prod_{i=1}^r P_{G_i}(k).
+    \end{equation*}
+    By lemma \ref{3b}, $k$ divides $P_{G_i}(k)$ exactly once.
+    Hence, $k$ divides $P_G(k)$ exactly $r$ times.
+\end{proof}
+
+Now for Part (e), the following graph has chromatic polynomial
+$P_G(k) = k^2(k-1)^3(k-2)$:
+\begin{center}
+    \begin{tikzpicture}
+        \draw [fill] (0,0) circle (0.1);
+        \draw [fill] (1,0) circle (0.1);
+        \draw [fill] (1,1) circle (0.1);
+        \draw [fill] (2,0) circle (0.1);
+        \draw [fill] (3,0) circle (0.1);
+        \draw [fill] (3,1) circle (0.1);
+        
+        \draw [-] (1,0) -- (1,1);
+        \draw [-] (1,0) -- (2,0);
+        \draw [-] (1,1) -- (2,0);
+        \draw [-] (2,0) -- (3,0);
+        \draw [-] (2,0) -- (3,1);
+    \end{tikzpicture}
+\end{center}
+
+\section*{Question 4}
+For this question, $k \geq 1$ and $G = (V,E)$ is a $k$-edge connected
+graph. We let $F_1,\ldots,F_m \subseteq E$ be distinct sets of $k$ edges
+which disconnected $G$. We let $\mathcal{F} = F_1\cup F_2\ldots \cup F_m$,
+and let $C_1,\ldots,C_t$ be the connected components of $G-\mathcal{F}$.
+
+\begin{lemma}[Part (a)]
+\label{4a}
+    For each $i = 1,\ldots,m$, we have:
+    \begin{equation*}
+        |\{e \in \mathcal{F}\;:\;e \cap C_i \neq \emptyset\}| \geq k.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Since $G$ is $k$-connected, it suffices to show that $S_i = \{e \in \mathcal{F}\;:\;e \cap C_i \neq \emptyset\}$
+    disconnects $G$. 
+    
+    Consider $G-S_i$. Suppose that $e$ is an edge joining $C_i$ to $G-C_i$. Then
+    since $C_i$ is a connected component of $G-\mathcal{F}$, we must have $e \in \mathcal{F}$,
+    and in particular $e \in S_i$. Hence $e \notin G-S_i$, so $G-S_i$
+    contains no edges joining $C_i$ to $G-C_i$. Thus $G-S_i$ is disconnected, 
+    and hence $|S_i| \geq k$.
+\end{proof}
+
+\begin{corollary}[Part (b)]
+    We have $|\mathcal{F}| \geq kt/2$.
+\end{corollary}
+\begin{proof}
+    Now, each $e \in \mathcal{F}$ is incident with at least one $C_i$, and at
+    most two $C_i$. Let $S_i$ as in lemma \ref{4a}, and we have:
+    \begin{equation*}
+        \mathcal{F} = S_1\cup S_2\cup \ldots \cup S_t. 
+    \end{equation*}
+    However, each element of $\mathcal{F}$ occurs in at most two of the $S_i$. 
+    Thus the sum
+    \begin{equation*}
+       \sum_{i=1}^t |S_i|
+    \end{equation*}
+    counts each element of $\mathcal{F}$ at most twice. Hence,
+    \begin{equation*}
+        \sum_{i=1}^t |S_i| \leq 2|\mathcal{F}|.
+    \end{equation*}
+    Hence, since for each $i$ we have $|S_i| \geq k$ from lemma \ref{4a}, 
+    \begin{equation*}
+        kt \leq 2|\mathcal{F}|.
+    \end{equation*}
+    So the result follows.
+\end{proof}
+
+\begin{corollary}[Part (c)]
+    We have $|\mathcal{F}| \leq mk$, and hence $t \leq 2m$.
+\end{corollary}
+\begin{proof}
+    Since $\mathcal{F} = F_1\cup F_2\cup\cdots\cup F_m$, hence $|\mathcal{F}| \leq |F_1|+|F_2|+\cdots+|F_m|$. 
+    Since each $|F_i| = k$, we then have $|\mathcal{F}| \leq mk$. 
+    Thus,
+    \begin{equation*}
+        kt/2 \leq |\mathcal{F}| \leq mk.
+    \end{equation*}
+    and hence $t \leq 2m$. 
+\end{proof}
 
 
+\section*{Question 5}
+
+For this question, $H$ denotes a $3$-uniform hypergraph
+on $n$ vertices with $n$ element vertex set $V$
+and $m$ element hyperedge set $E$, and $m \geq n/3$.
+
+\begin{lemma}[Part (a)]
+    \label{5a}
+    Let $U \subset V$ be a random vertex set, with $v \in U$
+    with probability $p$. Then $\mathbb{E}(|U|) = np$.
+\end{lemma}
+\begin{proof}
+    Let $X:G\to \{0,1\}$ be the indicator function of the set $U$.
+    Then,
+    \begin{equation*}
+        \mathbb{E}(|U|) = \sum_{v \in V} \mathbb{E}(X(v)).
+    \end{equation*}
+    Now, $X(v) = 1$ with probability $p$ and $0$ with probability $1-p$.
+    Hence $\mathbb{E}(X(v)) = p$, so $\mathbb{E}(|U|) = np$.
+\end{proof}
+
+\begin{lemma}[Part (b)]
+\label{5b}
+    Define $Y$ to be the number of hyperedges contained in $U$, randomly
+    chosen as in lemma \ref{5a}, that is,
+    \begin{equation}
+        Y = |\{e \in E\;:\;e \subseteq U\}|.
+    \end{equation}
+    Then $\mathbb{E}(Y) = mp^3$.
+\end{lemma}
+\begin{proof}
+    Let $X:E\to \{0,1\}$ be the indicator function
+    of the set of hyperedges in $U$.
+    Then,
+    \begin{equation*}
+        \mathbb{E}(Y) = \sum_{e \in E} \mathbb{E}(X(e)).
+    \end{equation*}
+    So we need to compute $\mathbb{E}(X(e))$ for a given
+    hyperedge $e$. 
+    
+    Since $X(e) = 1$ if $e \subseteq U$, and $0$ otherwise,
+    we have that $\mathbb{E}(X(e))$ equal the probability
+    that $e \subseteq U$. In otherwords, $\mathbb{E}(X(e))$
+    is the probability that $U$ contains $e$. 
+     
+    Suppose that $e = \{u,v,w\}$. Then $\mathbb{E}(X(e)) = \mathbb{P}(u,v,w \in U)$. 
+    Since each vertex is chosen to be in $U$ with probability $p$ independently,
+    we have that $\mathbb{E}(X(e)) = p^3$. 
+    Thus,
+    \begin{align*}
+        \mathbb{E}(Y) &= \sum_{e \in E} p^3\\
+                      &= mp^3.
+    \end{align*}
+\end{proof}
+
+\begin{corollary}[Part (c)]
+    Hence, $H$ contains an independent set with at least $\frac{2n^{3/2}}{3\sqrt{3m}}$
+    vertices.
+\end{corollary}
+\begin{proof}
+    We will use the probabilistic method: we will
+    show that $\mathbb{E}(|U|\;|\;Y = 0) \geq \frac{2n^{3/2}}{3\sqrt{3m}}$,
+    where $U$ is a random vertex set of $H$, as in lemma
+    \ref{5a}, and $Y$ is the number
+    of edges in $U$, as in lemma \ref{5b}.
+    
+    Now, by the definition of expectation:
+    \begin{equation*}
+        \mathbb{E}(|U|\;|\;Y = 0) = \sum_{S \subseteq V} |S|\mathbb{P}(U=S\;|\;Y = 0).
+    \end{equation*}
+    Now by Bayes' rule, for a fixed $S \subseteq V$
+    \begin{equation*}
+        \mathbb{P}(U=S\;|\;Y=0) = \frac{\mathbb{P}(U=S\wedge Y = 0)}{\mathbb{P}(Y=0)}.
+    \end{equation*}
+    Now, if $U = S$, we have that 
+    $Y = 0$ if and only if $S$ is independent.
+    Hence, if $S$ is independent, $\mathbb{P}(U=S\wedge Y = 0) = \mathbb{P}(U=S) = p^{|S|}(1-p)^{n-|S|}$.
+    If $S$ is not independent, then $\mathbb{P}(U=S\wedge Y=0) = 0$.
+    Thus, 
+    let $\mathcal{I}$ be the set of independent
+    subsets of $H$ ($\mathcal{I}$ is automatically non-empty since any $2$-element
+    subset is independent). Hence we have:
+    \begin{equation*}
+        \mathbb{E}(|U|\;|\;Y=0) = \sum_{S \in\mathcal{I}} |S| \frac{p^{|S|}(1-p)^{n-|S|}}{\mathbb{P}(Y=0)}.
+    \end{equation*} 
+    Rearranging this, we obtain:
+    \begin{equation*}
+        \mathbb{E}(|U|\;|\;Y=0) = \frac{1}{\mathbb{P}(Y=0)}\sum_{S \in \mathcal{I}} |S|p^{|S|}(1-p)^{n-|S|}
+    \end{equation*}
+    
+    Now we shall compute $\mathbb{P}(Y=0)$. By the law of total
+    probability, this is:
+    \begin{align*}
+        \mathbb{P}(Y=0) &= \sum_{S \subseteq V} \mathbb{P}(Y=0 \wedge U = S)\\
+                        &= \sum_{S \in \mathcal{I}} p^{|S|}(1-p)^{n-|S|}.
+    \end{align*}
+    Thus,
+    \begin{equation*}
+        \mathbb{E}(|U|\;|\;Y=0) = \frac{\sum_{S \in \mathcal{I}}|S|p^{|S|}(1-p)^{n-|S|}}{\sum_{S \in \mathcal{I}}p^{|S|}(1-p)^{n-|S|}}
+    \end{equation*}
+    Now if we let $\gamma = p/(1-p)$, and we have:
+    \begin{equation*}
+        \mathbb{E}(|U|\;|\;Y=0) = \frac{\sum_{S \in \mathcal{I}}|S|\gamma^{|S|}}{\sum_{S \in \mathcal{I}}\gamma^{|S|}}.
+    \end{equation*}
+    To find a lower bound for this expression, we need to find an upper bound on
+    the size of $\sum_{S\in\mathcal{I}} \gamma^{|S|}$.
+    In the worst possible case, every subset of $V$ is independent,
+    so $\mathcal{I} = 2^{V}$, and we have:
+    \begin{equation*}
+        \sum_{S \in \mathcal{I}} \gamma^{|S|} \leq \sum_{k=0}^n {n\choose k} \gamma^k = (\gamma+1)^n.
+    \end{equation*}
+    
+    We need to also find a lower bound on $\sum_{S \in \mathcal{I}} |S|\gamma^{|S|}$.
+    In the worst possible case, the only independent sets have $0$, $1$ or $2$ elements. 
+    Thus we have:
+    \begin{equation*}
+        \sum_{S \in \mathcal{I}} |S|\gamma^{|S|} \geq n\gamma+{n\choose 2}\cdot 2\gamma^2.
+    \end{equation*}
+    Hence,
+    \begin{equation*}
+        \mathbb{E}(|U|\;|\;Y=0) \geq \frac{n\gamma+n(n-1)\gamma^2}{(1+\gamma)^n}.
+    \end{equation*}
+    Now since $p \in (0,1)$ is arbitrary, $\gamma \in (0,\infty)$ can be chosen
+    freely. 
+\end{proof}
 
 \end{document}
