@@ -267,40 +267,53 @@ required properties of $P_G(k)$.
     In other words, if $G$ has $r$ connected components, then
     $r$ is the minimal positive integer such that the coefficient
     of $k^r$ in $P_G(k)$ is nonzero.
-    
+   
     Alternatively, $r$ is the number of times $k$ divides $P_G(k)$.
     
 \end{lemma}
 \begin{proof}
-    First we consider the case where $r = 1$. That is,
-    we wish to show that if $G$ is a connected graph, 
-    then $k$ divides $P_G(k)$ exactly once.
+%    First we prove the case where $r = 1$. That is,
+%    we wish to prove that if $G$ is a connected graph, then $k$ divides $P_G(k)$
+%    exactly once. 
+%    
+%    Let $v \in V(G)$.
+%    Now if $G$ is connected, the number of $k$-colourings of $G$
+%    which give vertex $v$ colour $1$ must be \emph{strictly less} than the number
+%    of $k$-colourings of $G-v$. The strictness comes from the fact
+%    that $v$ has a neighbour, and hence this neighbour can be colours with
+%    colour $1$.
+%    Thus, by lemma \ref{3b},
+%    \begin{equation}
+%    \label{ineq}
+%        \frac{P_G(k)}{k} < P_{G-v}(k)
+%    \end{equation}
+%    for all $k \geq 2$. 
+%    
+%    We now prove that $P_G(k)$ has exactly one factor of $k$ by induction
+%    on $n = V(G)$.
+%    
+%    For the case $n = 1$, $G$ is a single vertex, so $P_G(k) = k$,
+%    so the result holds for $n = 1$. 
+%    
+%    Now suppose that the result holds for $n \geq 1$, and suppose that $G$ has $n+1$
+%    vertices.
     
-    Let $f(k) = P_G(k)/k$. By lemma \ref{3b}, $f$ is a polynomial.
-    
-    Identify $f$ with its continuous extension $f:\Rl\to \Rl$. 
-    We wish to show that $f(0) \neq 0$. Now, $f(1) = P_G(1)$.
-    But since $G$ is connected, there is no $1$-colouring, hence 
-    $f(1) = P_G(1) = 0$.
-    
-    Now suppose, to find a contradiction, that $f(0) = 0$.
-    Then $f(0) = f(1) = 0$. Hence since $f$ is a differentiable
-    function, there must exist some $x \in (0,1)$ with $f'(x) = 0$.
-    Since $f(x) = P_G(x)/x$, we have that $f'(x) = (xP_G'(x)-P_G(x))/x^2$.
-    Hence if $f'(x) = 0$ and $x \in (0,1)$, we have that $P_G(x) = 0$.
-    Hence, $P_G$ as a zero  $x \in (0,1)$. Thus $f(x) = 0$. Hence, 
-    there is an additional zero $x' \in (0,x)$. So by induction
-    $f$ has infinitely many zeros in $(0,1)$. But this is impossible
-    since $f$ is a polynomial. Thus, $f(x) = 0$, and so $k^2$ does not
-    divide $f$.
-
+%    Since $G$ is connected, there exists some $v \in V(G)$ such
+%    that $G-v$ remains connected (we can see this by letting $v$ be a leaf
+%    of a spanning tree of $G$).
+%    
+%    Hence by the inductive hypothesis, $k$ divides $P_{G-v}(k)$ exactly once,
+%    so $P_{G-v}'(0) \neq 0$. 
+%    Since $G-v$ is connected, $P_{G-v}(1) = 0$. 
+%    
+%    
     Let the connected components of $G$ be $\{G_i\}_{i=1}^r$. Then
     by lemma \ref{3c}, we have:
     \begin{equation*}
         P_G(k) = \prod_{i=1}^r P_{G_i}(k).
     \end{equation*}
-    By lemma \ref{3b}, $k$ divides $P_{G_i}(k)$ exactly once.
-    Hence, $k$ divides $P_G(k)$ exactly $r$ times.
+    By lemma \ref{3b}, $k$ divides $P_{G_i}(k)$.
+    Hence, $k$ divides $P_G(k)$ at least $r$ times.
 \end{proof}
 
 Now for Part (e), the following graph has chromatic polynomial
@@ -445,70 +458,30 @@ and $m$ element hyperedge set $E$, and $m \geq n/3$.
     vertices.
 \end{corollary}
 \begin{proof}
-    We will use the probabilistic method: we will
-    show that $\mathbb{E}(|U|\;|\;Y = 0) \geq \frac{2n^{3/2}}{3\sqrt{3m}}$,
-    where $U$ is a random vertex set of $H$, as in lemma
-    \ref{5a}, and $Y$ is the number
-    of edges in $U$, as in lemma \ref{5b}.
+    We will use the probabilistic method: we will define
+    a random independent subset of $H$ and show that the
+    expected value of its size is at least $\frac{2n^{3/2}}{3\sqrt{3m}}$.
     
-    Now, by the definition of expectation:
-    \begin{equation*}
-        \mathbb{E}(|U|\;|\;Y = 0) = \sum_{S \subseteq V} |S|\mathbb{P}(U=S\;|\;Y = 0).
-    \end{equation*}
-    Now by Bayes' rule, for a fixed $S \subseteq V$
-    \begin{equation*}
-        \mathbb{P}(U=S\;|\;Y=0) = \frac{\mathbb{P}(U=S\wedge Y = 0)}{\mathbb{P}(Y=0)}.
-    \end{equation*}
-    Now, if $U = S$, we have that 
-    $Y = 0$ if and only if $S$ is independent.
-    Hence, if $S$ is independent, $\mathbb{P}(U=S\wedge Y = 0) = \mathbb{P}(U=S) = p^{|S|}(1-p)^{n-|S|}$.
-    If $S$ is not independent, then $\mathbb{P}(U=S\wedge Y=0) = 0$.
-    Thus, 
-    let $\mathcal{I}$ be the set of independent
-    subsets of $H$ ($\mathcal{I}$ is automatically non-empty since any $2$-element
-    subset is independent). Hence we have:
-    \begin{equation*}
-        \mathbb{E}(|U|\;|\;Y=0) = \sum_{S \in\mathcal{I}} |S| \frac{p^{|S|}(1-p)^{n-|S|}}{\mathbb{P}(Y=0)}.
-    \end{equation*} 
-    Rearranging this, we obtain:
-    \begin{equation*}
-        \mathbb{E}(|U|\;|\;Y=0) = \frac{1}{\mathbb{P}(Y=0)}\sum_{S \in \mathcal{I}} |S|p^{|S|}(1-p)^{n-|S|}
-    \end{equation*}
+    Let $U \subseteq H$ be chosen as in lemma \ref{5a}, and let
+    $Y$ be the number of edges in $U$ as in lemma \ref{5b}. 
     
-    Now we shall compute $\mathbb{P}(Y=0)$. By the law of total
-    probability, this is:
+    If we remove one vertex from every edge in $U$, then we create an independent
+    set. Hence we can remove $Y$ vertices from $H$ to form an independent set
+    of size $|U|-Y$.
+    By the linearity of expectation, and lemmas \ref{5a} and \ref{5b}:
     \begin{align*}
-        \mathbb{P}(Y=0) &= \sum_{S \subseteq V} \mathbb{P}(Y=0 \wedge U = S)\\
-                        &= \sum_{S \in \mathcal{I}} p^{|S|}(1-p)^{n-|S|}.
+        \mathbb{E}(|U|-Y) &= \mathbb{E}(|U|)-\mathbb{E}(Y)\\
+                          &= np - mp^3.
     \end{align*}
-    Thus,
-    \begin{equation*}
-        \mathbb{E}(|U|\;|\;Y=0) = \frac{\sum_{S \in \mathcal{I}}|S|p^{|S|}(1-p)^{n-|S|}}{\sum_{S \in \mathcal{I}}p^{|S|}(1-p)^{n-|S|}}
-    \end{equation*}
-    Now if we let $\gamma = p/(1-p)$, and we have:
-    \begin{equation*}
-        \mathbb{E}(|U|\;|\;Y=0) = \frac{\sum_{S \in \mathcal{I}}|S|\gamma^{|S|}}{\sum_{S \in \mathcal{I}}\gamma^{|S|}}.
-    \end{equation*}
-    To find a lower bound for this expression, we need to find an upper bound on
-    the size of $\sum_{S\in\mathcal{I}} \gamma^{|S|}$.
-    In the worst possible case, every subset of $V$ is independent,
-    so $\mathcal{I} = 2^{V}$, and we have:
-    \begin{equation*}
-        \sum_{S \in \mathcal{I}} \gamma^{|S|} \leq \sum_{k=0}^n {n\choose k} \gamma^k = (\gamma+1)^n.
-    \end{equation*}
+    Hence there exists an independent set of size at least $np-mp^3$. 
     
-    We need to also find a lower bound on $\sum_{S \in \mathcal{I}} |S|\gamma^{|S|}$.
-    In the worst possible case, the only independent sets have $0$, $1$ or $2$ elements. 
-    Thus we have:
-    \begin{equation*}
-        \sum_{S \in \mathcal{I}} |S|\gamma^{|S|} \geq n\gamma+{n\choose 2}\cdot 2\gamma^2.
-    \end{equation*}
-    Hence,
-    \begin{equation*}
-        \mathbb{E}(|U|\;|\;Y=0) \geq \frac{n\gamma+n(n-1)\gamma^2}{(1+\gamma)^n}.
-    \end{equation*}
-    Now since $p \in (0,1)$ is arbitrary, $\gamma \in (0,\infty)$ can be chosen
-    freely. 
+    Now we choose $p$: let $p = \sqrt{n/3m}$. This is a true probability
+    since by assumption $m \geq n/3$. Then,
+    \begin{align*}
+        np - mp^3 &= \sqrt{\frac{n}{3m}}(n-m\frac{n}{3m})\\
+                  &= \frac{2n^{3/2}}{3\sqrt{3m}}.
+    \end{align*}
+    Hence there is an independent set of at least this size.
 \end{proof}
 
 \end{document}
