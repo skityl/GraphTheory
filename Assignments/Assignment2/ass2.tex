@@ -5,6 +5,7 @@
 \usepackage{color}
 \usepackage[square,numbers]{natbib}
 \usepackage{tikz}
+\usepackage{pdfpages}
 
 \begin{document}
 
@@ -18,6 +19,7 @@
 
 
 \unswtitle{}
+\includepdf[pages={1}]{cover_sheet.pdf}
 
 \section*{Question 1}
 For graphs $G$ and $H$, we let consider the graph
@@ -50,11 +52,11 @@ set in $G$.
 
 \begin{lemma}[Part (b)]
 \label{1b}
-    For a graph $G$ on $n \geq 2$ vertices, and $r \geq 2$, we have
-    $\alpha(G\times K_r) = n$ if and only if $r = \chi(G)$.
+    For a graph $G$ on $n \geq 2$ vertices, and $r \geq 1$, we have
+    $\alpha(G\times K_r) = n$ if if $r = \chi(G)$.
 \end{lemma}
 \begin{proof}
-    Suppose first that $r = \chi(G)$. We must show that $\alpha(G\times K_r)$
+    Let $r = \chi(G)$. We must show that $\alpha(G\times K_r)$
     has an independent set of size $n$. Choose an $r$-colouring
     for $G$, $c:G\to \{1,2,\ldots,r\}$. Let $V_j = c^{-1}(\{j\})$
     be the set of vertices of $G$ with colour $j$.
@@ -83,19 +85,51 @@ set in $G$.
 \end{proof}
 
 \begin{corollary}[Part (c)]
-    Hence for a graph $G$ on $n\geq 2$ vertices, we have:
+    For a graph $G$ on $n\geq 2$ vertices, we have:
     \begin{equation*}
         \chi(G) = \min\{r > 0\;:\;\alpha(G\times K_r) = n\}.
     \end{equation*}
 \end{corollary}
 \begin{proof}
-    By lemma $1b$, we have that $\alpha(G\times K_r) = n$ if and only
-    if $r = \chi(G)$. 
+    By lemma \ref{1b}, we know that $\alpha(G\times K_r) = n$
+    when $r = \chi(G)$. We must show that $\alpha(G \times K_r) < n$
+    when $r < \chi(G)$. 
     
-    Hence, if $r < \chi(G)$, we must have $\alpha(G\times K_r) < n$. 
+    We will show this by demonstrating how an independent
+    set of size $n$ in $G \times K_r$ induces a colouring
+    of $G$ with at most $r$ colours. Since this is possible only when $r \geq \chi(G)$,
+    this will prove that there are no independent sets
+    of size $n$ in $G\times K_r$ when $r < \chi(G)$.
     
-    Thus the minimum value of $r$ such that $\alpha(G\times K_r) = n$
-    must be $\chi(G)$, and so we are done.
+    Let $r \geq 1$, and suppose that $S$ is an independent
+    set of size $n$ in $G\times K_r$, and label
+    the vertices of $K_r$ as $w_1,w_2,\ldots,w_r$.
+    
+    First we show that for all $v \in V$, there
+    is some $j$ so that $(v,w_j) \in S$. 
+    If this is not the case, then by the pigeonhole principle
+    there must be some $v \in V$ such that $(v,w),(v,u) \in S$
+    for distinct $w,u \in K_r$. But then $wu \in E(K_r)$, so $(v,w)$
+    and $(v,u)$ are adjacent, which is impossible
+    since $S$ is independent.
+    
+    Now we can define a function $c:V(G)\to \{1,2,\ldots,r\}$
+    as follows. 
+    
+    We define $c(v) = j$ if $(v,w_j) \in S$. 
+    This is well defined, since if $(v,w_j),(v,w_k) \in S$
+    are distinct, we must have that $w_j w_k \in E(K_r)$.
+    Hence $c(v)$ is defined uniquely for at least some vertices
+    in $G$.
+    
+    In fact $c$ is a colouring of $G$. To see this, let $vv' \in E(G)$. 
+    If $c(v) = c(v') = j$, then $(v,w_j),(v',w_j) \in S$.
+    But then since $v$ and $v'$ are adjacent, we must have that $(v,w_j)$
+    and $(v',w_j)$ are adjacent. Since $S$ is independent, we must then
+    have $c(v) \neq c(v')$. 
+    
+    Hence $c$ is a colouring of $v$ with at most $r$ colours,
+    and we are done.    
 \end{proof} 
 
 \section*{Question 2}
@@ -216,8 +250,12 @@ required properties of $P_G(k)$.
     other vertex. Hence if we have a $2$-colouring of $G$, $c:V(G)\to \{1,2\}$
     we either have $c(v) = 1$ and all other vertices have colour $2$,
     or $c(v) = 2$ and all other vertices have colour $1$.
-    Hence there are at most two $2$-colourings of $G$. So we cannot
-    have $P_G(k)$ as the given polynomial.
+    However this cannot be a true colouring since there are four edges: so one
+    edge must connect two vertices of colour $2$. Hence there is no $2$-colouring
+    of $G$. Thus, $p_G(k) = 0 \neq 6$.
+    
+    Thus we have exhausted all possible graphs with four vertices and four
+    edges. Hence the given polynomial cannot be a chromatic polynomial.
 \end{proof}
 
 \begin{lemma}[Part (b)]
@@ -257,7 +295,7 @@ required properties of $P_G(k)$.
 \end{proof}
 
 \begin{lemma}[Part (d)]
-    Let $G$ have $r$ connected components. If:
+    Let $r > 0$ and let $G$ have $r$ connected components. If:
     \begin{equation*}
         P_G(k) = c_0 + c_1k+c_2k^2 + \cdots + c_nk^n
     \end{equation*}
@@ -268,7 +306,7 @@ required properties of $P_G(k)$.
     $r$ is the minimal positive integer such that the coefficient
     of $k^r$ in $P_G(k)$ is nonzero.
    
-    Alternatively, $r$ is the number of times $k$ divides $P_G(k)$.
+    Alternatively, $k$ divides $P_G(k)$ at least $r$ times.
     
 \end{lemma}
 \begin{proof}
@@ -411,7 +449,7 @@ and $m$ element hyperedge set $E$, and $m \geq n/3$.
 \end{lemma}
 \begin{proof}
     Let $X:G\to \{0,1\}$ be the indicator function of the set $U$.
-    Then,
+    Then by the linearity of expectation,
     \begin{equation*}
         \mathbb{E}(|U|) = \sum_{v \in V} \mathbb{E}(X(v)).
     \end{equation*}
@@ -431,7 +469,7 @@ and $m$ element hyperedge set $E$, and $m \geq n/3$.
 \begin{proof}
     Let $X:E\to \{0,1\}$ be the indicator function
     of the set of hyperedges in $U$.
-    Then,
+    Then by the linearity of expectation,
     \begin{equation*}
         \mathbb{E}(Y) = \sum_{e \in E} \mathbb{E}(X(e)).
     \end{equation*}
@@ -454,6 +492,7 @@ and $m$ element hyperedge set $E$, and $m \geq n/3$.
 \end{proof}
 
 \begin{corollary}[Part (c)]
+\label{5c}
     Hence, $H$ contains an independent set with at least $\frac{2n^{3/2}}{3\sqrt{3m}}$
     vertices.
 \end{corollary}
@@ -475,7 +514,9 @@ and $m$ element hyperedge set $E$, and $m \geq n/3$.
     \end{align*}
     Hence there exists an independent set of size at least $np-mp^3$. 
     
-    Now we choose $p$: let $p = \sqrt{n/3m}$. This is a true probability
+    Since this holds for all $p \in [0,1]$, we can choose $p$ freely
+    in this range.
+    Let $p = \sqrt{n/3m}$. This is a true probability
     since by assumption $m \geq n/3$. Then,
     \begin{align*}
         np - mp^3 &= \sqrt{\frac{n}{3m}}(n-m\frac{n}{3m})\\
@@ -483,5 +524,11 @@ and $m$ element hyperedge set $E$, and $m \geq n/3$.
     \end{align*}
     Hence there is an independent set of at least this size.
 \end{proof}
+
+\begin{remark}
+    Our choice for $p$ in the proof of corollary \ref{5c} in fact
+    maximises $np-mp^3$ for $p \in [0,1]$, but it is not necessary to show this since we only
+    require a lower bound.
+\end{remark}
 
 \end{document}
